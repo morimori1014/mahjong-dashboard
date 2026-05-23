@@ -3,6 +3,9 @@ import streamlit as st
 import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.rcParams['font.family'] = 'DejaVu Sans'
 
 # =========================
 # 🀄 タイトル
@@ -34,8 +37,21 @@ st.header("⚙️ 評価設定")
 
 alpha = st.slider("有意水準 α", 0.01, 0.2, 0.05, 0.01)
 
-w_win = st.slider("和了率の重み（EV）", 1, 5, 3)
-w_deal = st.slider("放銃率の重み（EV）", 1, 5, 1)
+w_win = st.slider(
+    "和了率の重み",
+    min_value=0.1,
+    max_value=5.0,
+    value=3.3,
+    step=0.1
+)
+
+w_deal = st.slider(
+    "放銃率の重み",
+    min_value=0.1,
+    max_value=5.0,
+    value=1.5,
+    step=0.1
+)
 
 # =========================
 # 🧠 計算
@@ -93,15 +109,15 @@ if st.button("📈 評価する"):
     # =========================
     st.subheader("📈 ビジュアル比較")
 
-    labels = ["和了率", "放銃率"]
+    labels = ["Win Rate", "Deal-in Rate"]
     before = [win1, deal1]
     after = [win2, deal2]
 
     x = np.arange(len(labels))
 
     fig, ax = plt.subplots()
-    ax.bar(x - 0.2, before, 0.4, label="改善前")
-    ax.bar(x + 0.2, after, 0.4, label="改善後")
+    ax.bar(x - 0.2, before, 0.4, label="before")
+    ax.bar(x + 0.2, after, 0.4, label="after")
 
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
