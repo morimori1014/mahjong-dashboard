@@ -5,6 +5,10 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 import matplotlib
 
+st.set_page_config(
+    page_title="麻雀戦略・統計ダッシュボード",
+    page_icon="🀄",  # 好きな絵文字とかにできる
+)
 matplotlib.rcParams['font.family'] = 'DejaVu Sans'
 
 # =========================
